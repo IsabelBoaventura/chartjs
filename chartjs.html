@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .chart{
+            width: 350px;
+            height: 400px;
+            border: 1px solid red;
+        }
+    </style>
+    <script src="js/chart.min.js"></script>
+    <!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js'></script> -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js'></script>
+
+
+</head>
+<body>
+    <h1>grafico em barra </h1>
+    <div class="chart" >
+        <canvas id="myChart" width="400px" height="400px"></canvas>
+
+    </div>
+
+
+    
+    <h1>grafico em Linha </h1>
+    <div class="chart" >
+        <canvas id="myChartLine" width="400px" height="400px"></canvas>
+
+    </div>
+
+       
+    <h1>grafico em Multiplas  Linhas </h1>
+    <div class="chart" >
+        <canvas id="myChartMultiLine" width="400px" height="400px"></canvas>
+
+    </div>
+   
+
+    <script>
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [19, 12, 8, 5,  3,  2],
+                    backgroundColor: [
+                       
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+
+        const ctx_line = document.getElementById('myChartLine').getContext('2d');
+        const myChartLine = new Chart(ctx_line, {
+            type: 'line',
+            data: {
+                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Black'],
+                datasets: [
+                    {
+                       // 
+                    //    fillColor: "rgb(220,220,220 )",
+                    //     strokeColor: "rgb(255,206, 86)",
+                        fillColor:   'rgba(255, 99, 132, 1)',// "rgba(0,0,0,0)",
+                        strokeColor: "rgba(220,220,220,1)",
+                        pointColor: "rgba(200,122,20,1)",
+                        data: [65, 59, 80, 81, 56, 55, 40]
+                    },
+                    {
+                        // 
+                        fillColor: "rgb(151,187,205 )",
+                        strokeColor: "rgb(151,187,205)",
+                        data: [28, 48, 40, 19, 86, 27, 89]
+                    }
+                    //     {
+                    //     label: '# of Votes',
+                    //     data: [65, 59, 80, 81, 56, 55, 40],
+                    //     //  [
+                    //     //     [65, 59, 80, 81, 56, 55, 40],
+                    //     //     [72, 45, 82, 75, 45, 61, 43]
+                    //     // ],
+                    //     // backgroundColor: 'rgba(153, 102, 255, 1)',
+                    //     // borderWidth: 1
+                    //     fill: false,
+                    //     borderColor: [ 'rgb(75, 192, 192)',   'rgb(255, 99, 132)' ], 
+                    //     tension: 0.1
+                    // }
+                ]
+            },
+            // options: {
+            //     scales: {
+            //         y: {
+            //             beginAtZero: true
+            //         }
+            //     }
+            // }
+
+            options: {
+                responsive: true,
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                stacked: false,
+                plugins: {
+                    title: {
+                        display: false, //true,
+                        text: 'Chart.js Line Chart - Multi Axis'
+                    },
+                    legend:{
+                        labels: {
+                            display: false ,
+                            usePointStyle: true , 
+                        }
+                    }
+                },
+
+                scales: {
+                    y: {
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                    },
+                    // y1: {
+                    //     type: 'linear',
+                    //     display: true,
+                    //     position: 'right',
+
+                    //     // grid line settings
+                    //     grid: {
+                    //         drawOnChartArea: false, // only want the grid lines for one axis to show up
+                    //     },
+                    // },
+                }
+            },
+        } );
+
+
+
+
+
+
+
+        /* Grafico em  multi linhas
+        https://thewebdev.info/2020/04/28/chart-js-creating-a-chart-with-multiple-lines/
+        
+        */
+        const ctx_3 = document.getElementById('myChartMultiLine').getContext('2d');
+
+        const chart_multi_line  = new Chart(ctx_3, {
+            type: 'line',
+            data: {
+                labels: [
+                    moment(new Date(2020, 2, 1)).format('YYYY-MM-DD'),
+                    moment(new Date(2020, 2, 2)).format('YYYY-MM-DD'),
+                    moment(new Date(2020, 2, 3)).format('YYYY-MM-DD')
+                ],
+                datasets: [
+                    {
+                        label: '# of Red Votes',
+                        data: [12, 18, 22],
+                        borderWidth: 1,
+                        fill: false,
+                        borderColor: 'red'
+                    },
+                    {
+                        label: '# of Green Votes',
+                        data: [12, 2, 13],
+                        borderWidth: 1,
+                        fill: false,
+                        borderColor: 'green'
+                    }, 
+                    {
+                        label: '# of blue ',
+                        data: [2, 15, 8 ],
+                        borderWidth: 1,
+                        fill: false,
+                        borderColor: 'blue'
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                yAxes: [{
+                    ticks: {
+                    beginAtZero: true
+                    }
+                }]
+                }
+            }
+            });
+
+
+
+</script>
+ 
+
+
+    
+</body>
+</html>
